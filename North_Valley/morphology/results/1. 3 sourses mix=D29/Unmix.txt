@@ -1,0 +1,2 @@
+GOF.mean        GOF.SD       NV_left_slope.mean    NV_left_slope.SD    NV_moraine.mean    NV_moraine.SD   NV_right_slope.mean    NV_right_slope.SD
+27 0.96004252   0.07276295   -0.02124942           0.22228443          1.1229145          0.2199242   	  -0.1016651             0.2073377
