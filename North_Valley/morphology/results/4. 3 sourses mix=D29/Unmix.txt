@@ -1,0 +1,2 @@
+GOF.mean         GOF.SD        left_slope.mean    left_slope.SD    moraine.mean    moraine.SD    right_slope.mean    right_slope.SD
+15 0.97755947    0.06105174    -0.1249861         0.1429798        1.1274747       0.2592263     -0.002488606        0.186076571
