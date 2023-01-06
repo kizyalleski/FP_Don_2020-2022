@@ -11,19 +11,13 @@ data <- catchment
 
 # 1) ЧТЕНИЕ и подготовка ДАННЫХ
 df_north_morphology <- 
-  read_excel(path = "../data/north_valley_morphology_data.xlsx") %>% 
+  read_excel(path = "../data/2_sourses.xlsx") %>% 
   filter(Name != "Размерность") %>% 
   select(-X, -Y) %>% 
   rename(id = Name) %>% 
   mutate_at(vars(-Source), ~ as.numeric(.)) %>% 
   na_if(0) %>% 
-  as.data.frame() %>% 
-  filter(id != 2022) %>% 
-  filter(id != 2023) %>% 
-  filter(id != 2024) %>% 
-  filter(id != 2025) %>% 
-  filter(id != 2026) %>% 
-  filter(id != 2027)
+  as.data.frame()
 
 # список элементов, которых нет в мишени
 mix_na <-
@@ -67,9 +61,9 @@ df_lda %>%
 # 4) ВЫБОР ТРАССЕРОВ
 df_lda %>% 
   rangeTest() %>% 
-  KWTest(pvalue = 0.05)
+  KWTest(pvalue = 0.3)
 
-DFATest(df_lda, niveau = 0.05)
+DFATest(df_lda, niveau = 0.3)
 
 # 5) БОКСПЛОТЫ
 df %>% 
