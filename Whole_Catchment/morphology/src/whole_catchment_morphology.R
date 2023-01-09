@@ -11,14 +11,30 @@ data <- catchment
 
 # 1) ЧТЕНИЕ и подготовка ДАННЫХ
 df_whole_catchment <- 
-  read_excel(path = "../data/whole_catchment_data.xlsx") %>% 
+  read_excel(path = "../data/3-sourses_whole_catchment_data.xlsx") %>% 
   filter(Name != "Размерность") %>% 
   select(-X, -Y) %>% 
   rename(id = Name) %>% 
   mutate_at(vars(-Source), ~ as.numeric(.)) %>% 
   na_if(0) %>% 
   as.data.frame()
-
+  # filter(id != 3001) %>% 
+  # filter(id != 3002) %>% 
+  # filter(id != 3006) %>%
+  # filter(id != 2002) %>% 
+  # filter(id != 2009) %>% 
+  # filter(id != 2006) %>% 
+  # filter(id != 2017) %>% 
+  # filter(id != 2001) %>% 
+  # filter(id != 2006) %>%
+  # filter(id != 2010) %>% 
+  # filter(id != 1030) %>% 
+  # filter(id != 1031) %>% 
+  # filter(id != 1029) %>% 
+  # filter(id != 1017) %>% 
+  # filter(id != 1007) %>%
+  # filter(id != 1015)
+  
 # оставляю только одну целевую точку
 v <- 1 : 37
 for (i in v) {
@@ -43,7 +59,7 @@ mix_na <-
 
 # получение итогового набора данных
 df <-
-  df_north_morphology %>% 
+  df_whole_catchment %>% 
   select(!all_of(mix_na)) %>%  # оставляем только те элементы, которые есть в целевом образце
   mutate_all(~replace(., is.na(.), 0))
 
@@ -75,13 +91,13 @@ df_lda %>%
 # 4) ВЫБОР ТРАССЕРОВ
 df_lda %>% 
   rangeTest() %>% 
-  KWTest(pvalue = 0.3)
+  KWTest(pvalue = 0.05)
 
-DFATest(df_lda, niveau = 0.3)
+DFATest(df_lda, niveau = 0.05)
 
 # 5) БОКСПЛОТЫ
 df %>% 
-  select(id, Source, kps, plagioklaz) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   gather(elem, cons, -id, -Source) %>% 
   ggplot(aes(x = Source,
              y = cons,
@@ -93,13 +109,13 @@ df %>%
 
 # 6) ПОДТВЕРЖДЕНИЕ ТРАССЕРОВ
 df_lda %>% 
-  select(id, Source, kps, plagioklaz) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   LDAPlot(text = T)
 
 # 7) Размешивание
 results <- 
   df_lda %>% 
-  select(id, Source, kps, plagioklaz) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   unmix(samples = 100, iter = 1000)
 
 results %>% 
