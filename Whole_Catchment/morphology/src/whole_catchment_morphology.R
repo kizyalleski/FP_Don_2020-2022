@@ -97,7 +97,7 @@ DFATest(df_lda, niveau = 0.05)
 
 # 5) БОКСПЛОТЫ
 df %>% 
-  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz, Mn, smektit, Ba) %>% 
   gather(elem, cons, -id, -Source) %>% 
   ggplot(aes(x = Source,
              y = cons,
@@ -109,13 +109,13 @@ df %>%
 
 # 6) ПОДТВЕРЖДЕНИЕ ТРАССЕРОВ
 df_lda %>% 
-  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz, Mn, smektit, Ba) %>% 
   LDAPlot(text = T)
 
 # 7) Размешивание
 results <- 
   df_lda %>% 
-  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz, Mn, smektit, Ba) %>% 
   unmix(samples = 100, iter = 1000)
 
 results %>% 
