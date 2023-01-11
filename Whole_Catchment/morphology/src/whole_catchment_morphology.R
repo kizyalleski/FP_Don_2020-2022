@@ -17,23 +17,64 @@ df_whole_catchment <-
   rename(id = Name) %>% 
   mutate_at(vars(-Source), ~ as.numeric(.)) %>% 
   na_if(0) %>% 
-  as.data.frame()
-  # filter(id != 3001) %>% 
-  # filter(id != 3002) %>% 
-  # filter(id != 3006) %>%
-  # filter(id != 2002) %>% 
-  # filter(id != 2009) %>% 
-  # filter(id != 2006) %>% 
-  # filter(id != 2017) %>% 
-  # filter(id != 2001) %>% 
-  # filter(id != 2006) %>%
-  # filter(id != 2010) %>% 
-  # filter(id != 1030) %>% 
-  # filter(id != 1031) %>% 
-  # filter(id != 1029) %>% 
-  # filter(id != 1017) %>% 
-  # filter(id != 1007) %>%
-  # filter(id != 1015)
+  as.data.frame() %>% 
+  filter(id != 2005) %>%
+  filter(id != 2027) %>%
+  filter(id != 2020) %>%
+  filter(id != 2023) %>%
+  filter(id != 2015) %>%
+  filter(id != 2024) %>%
+  filter(id != 2025) %>%
+  filter(id != 1027) %>%
+  filter(id != 1031) %>%
+  filter(id != 1020) %>%
+  filter(id != 1028) %>%
+  filter(id != 1029) %>%
+  filter(id != 3006) %>%
+  filter(id != 3009) %>%
+  filter(id != 4004) %>%
+  filter(id != 4005) %>%
+  filter(id != 3005) %>%
+  filter(id != 4002) %>%
+  filter(id != 3002) %>% 
+  filter(id != 2021) %>%
+  filter(id != 1019) %>%
+  filter(id != 1018) %>%
+  filter(id != 4001) %>% 
+  filter(id != 3001) %>%
+  filter(id != 1030) %>%
+  filter(id != 2026) %>%
+  filter(id != 2022) %>%
+  filter(id != 2019) %>% 
+  filter(id != 2002) %>%
+  filter(id != 2006) %>%
+  filter(id != 2009) %>% 
+  filter(id != 2017) %>%
+  filter(id != 2016) %>%
+  filter(id != 2010) %>%
+  filter(id != 2001) %>%
+  filter(id != 2004) %>%
+  filter(id != 2003) %>%
+  filter(id != 3010) %>%
+  filter(id != 4003) %>%
+  filter(id != 3010) %>%
+  filter(id != 1017) %>%
+  filter(id != 1007) %>%
+  filter(id != 1015) %>%
+  filter(id != 1014) %>%
+  filter(id != 1021) %>% 
+  filter(id != 1024) %>%
+  filter(id != 1008) %>%
+  filter(id != 1011) %>% 
+  filter(id != 1009) %>%
+  filter(id != 1005) %>%
+  filter(id != 1026) %>% 
+  filter(id != 1001) %>% 
+  filter(id != 1010)
+  # filter(id != 1024) %>%
+  # filter(id != 1011) %>%
+  # filter(id != 1013)
+
   
 # оставляю только одну целевую точку
 v <- 1 : 37
@@ -97,7 +138,7 @@ DFATest(df_lda, niveau = 0.05)
 
 # 5) БОКСПЛОТЫ
 df %>% 
-  select(id, Source, Al, Zn, kps, plagioklaz, Mn, smektit, Ba) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   gather(elem, cons, -id, -Source) %>% 
   ggplot(aes(x = Source,
              y = cons,
@@ -109,13 +150,13 @@ df %>%
 
 # 6) ПОДТВЕРЖДЕНИЕ ТРАССЕРОВ
 df_lda %>% 
-  select(id, Source, Al, Zn, kps, plagioklaz, Mn, smektit, Ba) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   LDAPlot(text = T)
 
 # 7) Размешивание
 results <- 
   df_lda %>% 
-  select(id, Source, Al, Zn, kps, plagioklaz, Mn, smektit, Ba) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   unmix(samples = 100, iter = 1000)
 
 results %>% 
