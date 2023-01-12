@@ -1,0 +1,2 @@
+GOF.mean     GOF.SD       NV.mean      NV.SD        SV.mean     SV.SD       LS.mean       LS.SD
+0.7104333    0.1211615    0.8379830    0.2246496    0.348433    0.178788    -0.1864160    0.1716151
