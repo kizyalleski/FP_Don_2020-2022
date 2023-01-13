@@ -10,87 +10,72 @@ library(corrr)
 data <- catchment
 
 # 1) ЧТЕНИЕ и подготовка ДАННЫХ
-df_35_40 <- 
-  read_excel(path = "../data/35-40.xlsx") %>% 
+df_delta <- 
+  read_excel(path = "../data/whole_delta.xlsx") %>% 
   filter(Name != "Размерность") %>% 
   select(-X, -Y) %>% 
   rename(id = Name) %>% 
   mutate_at(vars(-Source), ~ as.numeric(.)) %>% 
   na_if(0) %>% 
   as.data.frame() %>% 
+  filter(id > 45) %>%  # оставляю одну целеыцю точку
   filter(id != 2027) %>%
-  filter(id != 1031) %>%
   filter(id != 1028) %>% 
-  filter(id != 4004) %>%
-  filter(id != 2015) %>%
-  filter(id != 1029) %>% 
   filter(id != 1020) %>%
-  filter(id != 1027) %>% 
-  filter(id != 2021) %>%
+  filter(id != 1024) %>%
+  filter(id != 1029) %>%
+  filter(id != 2005) %>%
+  filter(id != 2020) %>%
+  filter(id != 2021) %>% 
+  filter(id != 2007) %>%
   filter(id != 2023) %>%
-  filter(id != 4001) %>% 
+  filter(id != 4004) %>%
+  filter(id != 1027) %>%
+  filter(id != 1031) %>%
   filter(id != 1022) %>%
-  filter(id != 1015) %>%
-  filter(id != 1026) %>%
-  filter(id != 2004) %>%
+  filter(id != 1015) %>% 
+  filter(id != 2010) %>%
+  filter(id != 1010) %>%
+  filter(id != 4005) %>% 
+  filter(id != 3001) %>%
+  filter(id != 3002) %>%
+  filter(id != 4002) %>%
+  filter(id != 1030) %>% 
+  filter(id != 1009) %>%
+  filter(id != 3005) %>%
+  filter(id != 3006) %>% 
+  filter(id != 2005) %>%
+  filter(id != 2006) %>%
+  filter(id != 2009) %>% 
+  filter(id != 2015) %>%
+  filter(id != 2024) %>%
+  filter(id != 2019) %>%
   filter(id != 2022) %>%
-  filter(id != 2010)
-# filter(id != 2019) %>%
-# filter(id != 2020) %>%
-# filter(id != 2016) %>%
-# filter(id != 1014) %>%
-# filter(id != 2003) %>%
-# filter(id != 3001) %>%
-# filter(id != 3002) %>%
-# filter(id != 4002) %>%
-# filter(id != 1030) %>% 
-# filter(id != 1017) %>%
-# filter(id != 1021) %>%
-# filter(id != 1007) %>%
-# filter(id != 2006) %>%
-# filter(id != 2002) %>%
-# filter(id != 2005) %>%
-# filter(id != 3005) %>%
-# filter(id != 3006) %>% 
-# filter(id != 2014) %>%
-# filter(id != 1006) %>%
-# filter(id != 1009) %>% 
-# filter(id != 4003) %>% 
-# filter(id != 4005) %>% 
-# filter(id != 1005) %>%
-# filter(id != 1012) %>%
-# filter(id != 1016) %>% 
-# filter(id != 2009) %>%
-# filter(id != 2026) %>%
-# filter(id != 2024) %>% 
-# filter(id != 2025) %>% 
-# filter(id != 2008) 
-# filter(id != 1005) %>%
-# filter(id != 1026) %>% 
-# filter(id != 1001) %>% 
-# filter(id != 1010)
-# filter(id != 1024) %>%
-# filter(id != 1011) %>%
-# filter(id != 1013)
-
-
-# оставляю только одну целевую точку
-v <- 35 : 40
-for (i in v) {
-  df_35_40 <- 
-    df_35_40 %>% 
-    filter(id != i)
-}
-# v2 <- 36 : 45
-# for (i in v2) {
-#   df_whole_catchment <- 
-#     df_whole_catchment %>% 
-#     filter(id != i)
-# }
+  filter(id != 2026) %>% 
+  filter(id != 2025) %>%
+  filter(id != 2002) %>%
+  filter(id != 2017) 
+  # filter(id != 1017) %>%
+  # filter(id != 1007) %>%
+  # filter(id != 1004) %>%
+  # filter(id != 1014) %>%
+  # filter(id != 1021) %>%
+  # filter(id != 1011) 
+  # filter(id != 2013) %>%
+  # filter(id != 2004) %>%
+  # filter(id != 2003) %>%
+  # filter(id != 2016)
+  # filter(id != 4003)
+  # filter(id != 1026) %>% 
+  # filter(id != 1001) %>% 
+  # filter(id != 1010)
+  # filter(id != 1024) %>%
+  # filter(id != 1011) %>%
+  # filter(id != 1013)
 
 # список элементов, которых нет в мишени
 mix_na <-
-  df_35_40 %>% 
+  df_delta %>% 
   filter(Source == "Mix") %>% # оставляем только строку целевого образца
   select_if(is.na) %>% # выбираем столбцы с na
   gather(var, val) %>% # переменную и значение ориентируем вертикально
@@ -98,7 +83,7 @@ mix_na <-
 
 # получение итогового набора данных
 df <-
-  df_35_40 %>% 
+  df_delta %>% 
   select(!all_of(mix_na)) %>%  # оставляем только те элементы, которые есть в целевом образце
   mutate_all(~replace(., is.na(.), 0))
 
@@ -136,7 +121,7 @@ DFATest(df_lda, niveau = 0.05)
 
 # 5) БОКСПЛОТЫ
 df %>% 
-  select(id, Source, Al, Ca, Cu, Zn) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   gather(elem, cons, -id, -Source) %>% 
   ggplot(aes(x = Source,
              y = cons,
@@ -148,13 +133,13 @@ df %>%
 
 # 6) ПОДТВЕРЖДЕНИЕ ТРАССЕРОВ
 df_lda %>% 
-  select(id, Source, Al, Ca, Cu, Zn) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   LDAPlot(text = T)
 
 # 7) Размешивание
 results <- 
   df_lda %>% 
-  select(id, Source, Al, Ca, Cu, Zn) %>% 
+  select(id, Source, Al, Zn, kps, plagioklaz) %>% 
   unmix(samples = 100, iter = 1000)
 
 results %>% 
