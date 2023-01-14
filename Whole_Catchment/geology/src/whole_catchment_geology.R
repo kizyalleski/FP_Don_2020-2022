@@ -1,4 +1,4 @@
-setwd("C:/Studies/Donguzorun/FP/FP_2020-2022/Whole_Catchment/morphology/src")
+setwd("C:/Studies/Donguzorun/FP/FP_2020-2022/Whole_Catchment/geology/src")
 
 library(tidyverse)
 library(dplyr)
@@ -11,7 +11,7 @@ data <- catchment
 
 # 1) ЧТЕНИЕ и подготовка ДАННЫХ
 df_whole_catchment <- 
-  read_excel(path = "../data/3-sourses_whole_catchment_data.xlsx") %>% 
+  read_excel(path = "../data/") %>% 
   filter(Name != "Размерность") %>% 
   select(-X, -Y) %>% 
   rename(id = Name) %>% 
@@ -58,24 +58,24 @@ df_whole_catchment <-
   filter(id != 1024) %>%
   filter(id != 4001) %>%
   filter(id != 4003)
-  # filter(id != 2010) %>%
-  # filter(id != 2004) %>%
-  # filter(id != 1025) %>%
-  # filter(id != 1012) %>%
-  # filter(id != 1011) %>%
-  # filter(id != 1007)
-  # filter(id != 1001)
-  # filter(id != 1011) %>% 
-  # filter(id != 1009) %>%
-  # filter(id != 1005) %>%
-  # filter(id != 1026) %>% 
-  # filter(id != 1001) %>% 
-  # filter(id != 1010)
-  # filter(id != 1024) %>%
-  # filter(id != 1011) %>%
-  # filter(id != 1013)
+# filter(id != 2010) %>%
+# filter(id != 2004) %>%
+# filter(id != 1025) %>%
+# filter(id != 1012) %>%
+# filter(id != 1011) %>%
+# filter(id != 1007)
+# filter(id != 1001)
+# filter(id != 1011) %>% 
+# filter(id != 1009) %>%
+# filter(id != 1005) %>%
+# filter(id != 1026) %>% 
+# filter(id != 1001) %>% 
+# filter(id != 1010)
+# filter(id != 1024) %>%
+# filter(id != 1011) %>%
+# filter(id != 1013)
 
-  
+
 # оставляю только одну целевую точку
 v <- 1 : 35
 for (i in v) {
@@ -139,7 +139,7 @@ DFATest(df_lda, niveau = 0.05)
 # 5) БОКСПЛОТЫ
 df %>% 
   select(id, Source, Al, Zn, kps, plagioklaz) %>% 
-    gather(elem, cons, -id, -Source) %>% 
+  gather(elem, cons, -id, -Source) %>% 
   ggplot(aes(x = Source,
              y = cons,
              color = Source)) +
@@ -161,4 +161,3 @@ results <-
 
 results %>% 
   plotResults()
-  
