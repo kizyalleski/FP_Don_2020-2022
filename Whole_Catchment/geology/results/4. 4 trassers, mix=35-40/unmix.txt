@@ -1,0 +1,2 @@
+  id  GOF.mean    GOF.SD cr_sch.mean cr_sch.SD cr_sch_gn.mean cr_sch_gn.SD   gr.mean     gr.SD
+1 19 0.6851816 0.0873763   0.1216138 0.2781988      0.5678844    0.3269367 0.3105018 0.1873679
