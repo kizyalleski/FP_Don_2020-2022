@@ -30,36 +30,36 @@ df_whole_catchment <-
   filter(id != 3011) %>% 
   filter(id != 1028) %>% 
   filter(id != 1015) %>% 
-  filter(id != 2006) %>%
-  filter(id != 2022) %>%
-  filter(id != 2019) %>%
-  filter(id != 3010) %>%
-  filter(id != 3007) %>%
-  filter(id != 2014) %>%
-  filter(id != 3003) %>%
-  filter(id != 3008) %>%
-  filter(id != 2005) %>% 
+  filter(id != 2005) %>%
+  filter(id != 2017) %>%
+  filter(id != 2016) %>% 
   filter(id != 1030) %>%
   filter(id != 1024) %>%
-  filter(id != 1021) 
-  # filter(id != 2017) %>%
-  # filter(id != 1009) %>%
-  # filter(id != 1016) %>%
-  # filter(id != 1010) %>%
-  # filter(id != 1013) %>% 
-  # filter(id != 2010) %>%
-  # filter(id != 2025) %>%
-  # filter(id != 1005) %>%
-  # filter(id != 2001) %>%
-  # filter(id != 1012) %>%
-  # filter(id != 1004) %>%
-  # filter(id != 1011) %>% 
-  # filter(id != 2018) %>%
-  # filter(id != 1023)
-  # filter(id != 2016) %>%
-  # filter(id != 3005) %>%
-  # filter(id != 3006) %>%
-  # filter(id != 1022) %>%
+  filter(id != 1009) %>%
+  filter(id != 1023) %>%
+  filter(id != 1021) %>% 
+  filter(id != 2022) %>%
+  filter(id != 2020) %>%
+  filter(id != 3003) %>% 
+  filter(id != 2004) %>%
+  filter(id != 1007) %>%
+  filter(id != 1004) %>%
+  filter(id != 2009) %>%
+  filter(id != 2027) %>%
+  filter(id != 2011) %>% 
+  filter(id != 3008) %>%
+  filter(id != 2014) %>%
+  filter(id != 3007) %>% 
+  filter(id != 1013) %>%
+  filter(id != 2006) %>%
+  filter(id != 2021) %>%
+  filter(id != 3002) %>% 
+  filter(id != 1005) %>% 
+  filter(id != 1008) %>% 
+  filter(id != 1022) %>%
+  filter(id != 1006) %>% 
+  filter(id != 1001) %>%
+  filter(id != 1012)
   # filter(id != 1008) %>%
   # filter(id != 1005) %>%
   # filter(id != 1006) %>%
@@ -140,7 +140,7 @@ DFATest(df_lda, niveau = 0.1)
 
 # 5) БОКСПЛОТЫ
 df %>% 
-  select(id, Source, S, Zn, As, Zr, Bi, kps, plagioklaz) %>% 
+  select(id, Source, Zn, Bi, kps, plagioklaz) %>% 
   gather(elem, cons, -id, -Source) %>% 
   ggplot(aes(x = Source,
              y = cons,
@@ -152,13 +152,13 @@ df %>%
 
 # 6) ПОДТВЕРЖДЕНИЕ ТРАССЕРОВ
 df_lda %>% 
-  select(id, Source, S, Zn, As, Zr, Bi, kps, plagioklaz) %>% 
+  select(id, Source, Zn, Bi, kps, plagioklaz) %>% 
   LDAPlot(text = T)
 
 # 7) Размешивание
 results <- 
   df_lda %>% 
-  select(id, Source, S, Zn, As, Zr, Bi, kps, plagioklaz) %>% 
+  select(id, Source, Zn, Bi, kps, plagioklaz) %>% 
   unmix(samples = 100, iter = 1000)
 
 results %>% 
