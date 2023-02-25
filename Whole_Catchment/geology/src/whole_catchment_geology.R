@@ -17,65 +17,7 @@ df_whole_catchment <-
   rename(id = Name) %>% 
   mutate_at(vars(-Source), ~ as.numeric(.)) %>% 
   na_if(0) %>% 
-  as.data.frame() %>% 
-  filter(id != 2007) %>%
-  filter(id != 2023) %>%
-  filter(id != 2026) %>%
-  filter(id != 1017) %>%
-  filter(id != 1020) %>%
-  filter(id != 1027) %>%
-  filter(id != 1031) %>%
-  filter(id != 2013) %>%
-  filter(id != 3009) %>%
-  filter(id != 3011) %>% 
-  filter(id != 1028) %>% 
-  filter(id != 1015) %>% 
-  filter(id != 2005) %>%
-  filter(id != 2017) %>%
-  filter(id != 2016) %>% 
-  filter(id != 1030) %>%
-  filter(id != 1024) %>%
-  filter(id != 1009) %>%
-  filter(id != 1023) %>%
-  filter(id != 1021) %>% 
-  filter(id != 2022) %>%
-  filter(id != 2020) %>%
-  filter(id != 3003) %>% 
-  filter(id != 2004) %>%
-  filter(id != 1007) %>%
-  filter(id != 1004) %>%
-  filter(id != 2009) %>%
-  filter(id != 2027) %>%
-  filter(id != 2011) %>% 
-  filter(id != 3008) %>%
-  filter(id != 2014) %>%
-  filter(id != 3007) %>% 
-  filter(id != 1013) %>%
-  filter(id != 2006) %>%
-  filter(id != 2021) %>%
-  filter(id != 3002) %>% 
-  filter(id != 1005) %>% 
-  filter(id != 1008) %>% 
-  filter(id != 1022) %>%
-  filter(id != 1006) %>% 
-  filter(id != 1001) %>%
-  filter(id != 1012)
-  # filter(id != 1008) %>%
-  # filter(id != 1005) %>%
-  # filter(id != 1006) %>%
-  # filter(id != 1012) %>%
-  # filter(id != 1011)
-
-  # filter(id != 1010) %>% 
-  # filter(id != 1023) %>%
-  # filter(id != 3003) %>% 
-  # filter(id != 1022) %>% 
-  # filter(id != 1002)
-  # filter(id != 1010)
-  # filter(id != 1024) %>%
-  # filter(id != 1011) %>%
-  # filter(id != 1013)
-
+  as.data.frame()
 
 # оставляю только одну целевую точку
 v <- 1 : 45
@@ -84,13 +26,6 @@ for (i in v) {
     df_whole_catchment %>%
     filter(id != i)
 }
- 
-# v2 <- 37 : 45
-# for (i in v2) {
-#   df_whole_catchment <- 
-#     df_whole_catchment %>% 
-#     filter(id != i)
-# }
 
 # список элементов, которых нет в мишени
 mix_na <-
